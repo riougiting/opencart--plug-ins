@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+
+ 
+	<!-- controller -->
+	<file name="friendlyarm-root/controller/sale/order.php" error="log">
+
+		<operation error="log">
+			<search position="before" index="2">
+				<![CDATA[if (isset($this->request->get['sort']))]]>
+			</search>
+			<add>
+				<![CDATA[if (isset($this->request->get['filter_shipping_postcode'])) {
+			$filter_shipping_postcode = $this->request->get['filter_shipping_postcode'];
+		} else {
+			$filter_shipping_postcode = null;
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_country'])) {
+			$filter_shipping_country = $this->request->get['filter_shipping_country'];
+		} else {
+			$filter_shipping_country = null;
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_telephone'])) {
+			$filter_telephone = $this->request->get['filter_telephone'];
+		} else {
+			$filter_telephone = null;
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_city'])) {
+			$filter_shipping_city = $this->request->get['filter_shipping_city'];
+		} else {
+			$filter_shipping_city = null;
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_email'])) {
+			$filter_email = $this->request->get['filter_email'];
+		} else {
+			$filter_email = null;
+		}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="before" index="1">
+				<![CDATA[if (isset($this->request->get['sort']))]]>
+			</search>
+			<add>
+				<![CDATA[if (isset($this->request->get['filter_shipping_postcode'])) {
+			$url .= '&filter_shipping_postcode=' . $this->request->get['filter_shipping_postcode'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_country'])) {
+			$url .= '&filter_shipping_country=' . $this->request->get['filter_shipping_country'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_telephone'])) {
+			$url .= '&filter_telephone=' . $this->request->get['filter_telephone'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_city'])) {
+			$url .= '&filter_shipping_city=' . $this->request->get['filter_shipping_city'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_email'])) {
+			$url .= '&filter_email=' . $this->request->get['filter_email'];
+		}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="after">
+				<![CDATA['filter_date_modified' => $filter_date_modified,]]>
+			</search>
+			<add>
+				<![CDATA['filter_shipping_postcode' => $filter_shipping_postcode,]]>
+				<![CDATA['filter_shipping_country' => $filter_shipping_country,]]>
+				<![CDATA['filter_telephone' => $filter_telephone,]]>
+				<![CDATA['filter_shipping_city' => $filter_shipping_city,]]>
+				<![CDATA['filter_email' => $filter_email,]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="after">
+				<![CDATA['date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),]]>
+			</search>
+			<add>
+				<![CDATA['shipping_postcode'        => $result['shipping_postcode'],]]>
+				<![CDATA['shipping_country'        => $result['shipping_country'],]]>
+				<![CDATA['telephone'        => $result['telephone'],]]>
+				<![CDATA['shipping_city'        => $result['shipping_city'],]]>
+				<![CDATA['email'        => $result['email'],]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="after">
+				<![CDATA[$data['entry_date_modified'] = $this->language->get('entry_date_modified');]]>
+			</search>
+			<add>
+				<![CDATA[$data['entry_postcode'] = $this->language->get('entry_postcode');]]>
+				<![CDATA[$data['entry_country'] = $this->language->get('entry_country');]]>
+				<![CDATA[$data['entry_telephone'] = $this->language->get('entry_telephone');]]>
+				<![CDATA[$data['entry_city'] = $this->language->get('entry_city');]]>
+				<![CDATA[$data['entry_email'] = $this->language->get('entry_email');]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="before">
+				<![CDATA[if ($order == 'ASC') {]]>
+			</search>
+			<add>
+				<![CDATA[if (isset($this->request->get['filter_shipping_postcode'])) {
+			$url .= '&filter_shipping_postcode=' . $this->request->get['filter_shipping_postcode'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_country'])) {
+			$url .= '&filter_shipping_country=' . $this->request->get['filter_shipping_country'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_telephone'])) {
+			$url .= '&filter_telephone=' . $this->request->get['filter_telephone'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_city'])) {
+			$url .= '&filter_shipping_city=' . $this->request->get['filter_shipping_city'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_email'])) {
+			$url .= '&filter_email=' . $this->request->get['filter_email'];
+		}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="after">
+				<![CDATA[$data['sort_date_modified'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.date_modified' . $url, 'SSL');]]>
+			</search>
+			<add>
+				<![CDATA[$data['sort_shipping_postcode'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.shipping_postcode' . $url, 'SSL');]]>
+				<![CDATA[$data['sort_shipping_country'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.shipping_country' . $url, 'SSL');]]>
+				<![CDATA[$data['sort_telephone'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.telephone' . $url, 'SSL');]]>
+				<![CDATA[$data['sort_shipping_city'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.shipping_city' . $url, 'SSL');]]>
+				<![CDATA[$data['sort_email'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.email' . $url, 'SSL');]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="before" index="3">
+				<![CDATA[if (isset($this->request->get['sort'])) {]]>
+			</search>
+			<add>
+				<![CDATA[if (isset($this->request->get['filter_shipping_postcode'])) {
+			$url .= '&filter_shipping_postcode=' . $this->request->get['filter_shipping_postcode'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_country'])) {
+			$url .= '&filter_shipping_country=' . $this->request->get['filter_shipping_country'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_telephone'])) {
+			$url .= '&filter_telephone=' . $this->request->get['filter_telephone'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_city'])) {
+			$url .= '&filter_shipping_city=' . $this->request->get['filter_shipping_city'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_email'])) {
+			$url .= '&filter_email=' . $this->request->get['filter_email'];
+		}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="before">
+				<![CDATA[$data['filter_date_modified'] = $filter_date_modified;]]>
+			</search>
+			<add>
+				<![CDATA[$data['filter_shipping_postcode'] = $filter_shipping_postcode;]]>
+				<![CDATA[$data['filter_shipping_country'] = $filter_shipping_country;]]>
+				<![CDATA[$data['filter_telephone'] = $filter_telephone;]]>
+				<![CDATA[$data['filter_shipping_city'] = $filter_shipping_city;]]>
+				<![CDATA[$data['filter_email'] = $filter_email;]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="before" index="4">
+				<![CDATA[if (isset($this->request->get['sort'])) {]]>
+			</search>
+			<add>
+				<![CDATA[if (isset($this->request->get['filter_shipping_postcode'])) {
+			$url .= '&filter_shipping_postcode=' . $this->request->get['filter_shipping_postcode'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_country'])) {
+			$url .= '&filter_shipping_country=' . $this->request->get['filter_shipping_country'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_telephone'])) {
+			$url .= '&filter_telephone=' . $this->request->get['filter_telephone'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_city'])) {
+			$url .= '&filter_shipping_city=' . $this->request->get['filter_shipping_city'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_email'])) {
+			$url .= '&filter_email=' . $this->request->get['filter_email'];
+		}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="before" index="5">
+				<![CDATA[if (isset($this->request->get['sort'])) {]]>
+			</search>
+			<add>
+				<![CDATA[if (isset($this->request->get['filter_shipping_postcode'])) {
+			$url .= '&filter_shipping_postcode=' . $this->request->get['filter_shipping_postcode'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_country'])) {
+			$url .= '&filter_shipping_country=' . $this->request->get['filter_shipping_country'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_telephone'])) {
+			$url .= '&filter_telephone=' . $this->request->get['filter_telephone'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_city'])) {
+			$url .= '&filter_shipping_city=' . $this->request->get['filter_shipping_city'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_email'])) {
+			$url .= '&filter_email=' . $this->request->get['filter_email'];
+		}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="before" index="6">
+				<![CDATA[if (isset($this->request->get['sort'])) {]]>
+			</search>
+			<add>
+				<![CDATA[if (isset($this->request->get['filter_shipping_postcode'])) {
+			$url .= '&filter_shipping_postcode=' . $this->request->get['filter_shipping_postcode'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_country'])) {
+			$url .= '&filter_shipping_country=' . $this->request->get['filter_shipping_country'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_telephone'])) {
+			$url .= '&filter_telephone=' . $this->request->get['filter_telephone'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_shipping_city'])) {
+			$url .= '&filter_shipping_city=' . $this->request->get['filter_shipping_city'];
+		}]]>
+				<![CDATA[if (isset($this->request->get['filter_email'])) {
+			$url .= '&filter_email=' . $this->request->get['filter_email'];
+		}]]>
+			</add>
+		</operation>
+	</file>
+
+	<!-- model -->
+
+	<file name="friendlyarm-root/model/sale/order.php" error="log">
+
+		<operation error="log">
+			<search position="before" index="1">
+				<![CDATA[if (!empty($data['filter_date_added'])) {]]>
+			</search>
+			<add>
+				<![CDATA[if (!empty($data['filter_shipping_postcode'])) {
+			$sql .= " AND o.shipping_postcode LIKE '%" . $this->db->escape($data['filter_shipping_postcode']) . "%'";
+		}]]>
+				<![CDATA[if (!empty($data['filter_shipping_country'])) {
+			$sql .= " AND o.shipping_country LIKE '%" . $this->db->escape($data['filter_shipping_country']) . "%'";
+		}]]>
+				<![CDATA[if (!empty($data['filter_telephone'])) {
+			$sql .= " AND o.telephone LIKE '%" . $this->db->escape($data['filter_telephone']) . "%'";
+		}]]>
+				<![CDATA[if (!empty($data['filter_shipping_city'])) {
+			$sql .= " AND o.shipping_city LIKE '%" . $this->db->escape($data['filter_shipping_city']) . "%'";
+		}]]>
+				<![CDATA[if (!empty($data['filter_email'])) {
+			$sql .= " AND o.email LIKE '%" . $this->db->escape($data['filter_email']) . "%'";
+		}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="before" index="2">
+				<![CDATA[if (!empty($data['filter_date_added']))]]>
+			</search>
+			<add>
+				<![CDATA[if (!empty($data['filter_shipping_postcode'])) {
+			$sql .= " AND shipping_postcode LIKE '%" . $this->db->escape($data['filter_shipping_postcode']) . "%'";
+		}]]>	<![CDATA[if (!empty($data['filter_shipping_country'])) {
+			$sql .= " AND o.shipping_country LIKE '%" . $this->db->escape($data['filter_shipping_country']) . "%'";
+		}]]>
+				<![CDATA[if (!empty($data['filter_telephone'])) {
+			$sql .= " AND telephone LIKE '%" . $this->db->escape($data['filter_telephone']) . "%'";
+		}]]>
+				<![CDATA[if (!empty($data['filter_shipping_city'])) {
+			$sql .= " AND shipping_city LIKE '%" . $this->db->escape($data['filter_shipping_city']) . "%'";
+		}]]>
+				<![CDATA[if (!empty($data['filter_email'])) {
+			$sql .= " AND email LIKE '%" . $this->db->escape($data['filter_email']) . "%'";
+		}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="replace">
+				<![CDATA[$sql = "SELECT o.order_id, CONCAT(o.firstname, ' ', o.lastname) AS customer, (SELECT os.name FROM " . DB_PREFIX . "order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = '" . (int)$this->config->get('config_language_id') . "') AS status, o.shipping_code, o.total, o.currency_code, o.currency_value, o.date_added, o.date_modified FROM `" . DB_PREFIX . "order` o";]]>
+
+			</search>
+			<add>
+				<![CDATA[$sql = "SELECT o.order_id, CONCAT(o.firstname, ' ', o.lastname) AS customer, (SELECT os.name FROM " . DB_PREFIX . "order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = '" . (int)$this->config->get('config_language_id') . "') AS status, o.shipping_code, o.total, o.currency_code, o.currency_value, o.date_added, o.date_modified, o.shipping_city, o.shipping_postcode,o.shipping_country, o.telephone, o.email FROM `" . DB_PREFIX . "order` o";]]>
+
+			</add>
+		</operation>
+
+	</file>
+
+	<!-- view -->
+	<file name="friendlyarm-root/view/template/sale/order_list.tpl" error="log">
+
+		<operation error="log">
+			<search position="before">
+				<![CDATA[location = url;]]>
+			</search>
+			<add>
+				<![CDATA[var filter_shipping_postcode = $('input[name=\'filter_shipping_postcode\']').val();
+
+	if (filter_shipping_postcode) {
+		url += '&filter_shipping_postcode=' + encodeURIComponent(filter_shipping_postcode);
+	}]]>
+				<![CDATA[var filter_shipping_country = $('input[name=\'filter_shipping_country\']').val();
+
+	if (filter_shipping_country) {
+		url += '&filter_shipping_country=' + encodeURIComponent(filter_shipping_country);
+	}]]>
+				<![CDATA[var filter_telephone = $('input[name=\'filter_telephone\']').val();
+
+	if (filter_telephone) {
+		url += '&filter_telephone=' + encodeURIComponent(filter_telephone);
+	}]]>
+				<![CDATA[var filter_shipping_city = $('input[name=\'filter_shipping_city\']').val();
+
+	if (filter_shipping_city) {
+		url += '&filter_shipping_city=' + encodeURIComponent(filter_shipping_city);
+	}]]>
+				<![CDATA[var filter_email = $('input[name=\'filter_email\']').val();
+
+	if (filter_email) {
+		url += '&filter_email=' + encodeURIComponent(filter_email);
+	}]]>
+			</add>
+		</operation>
+
+		<operation error="log">
+			<search position="after" offset="1">
+				<![CDATA[<input type="text" name="filter_customer" value="<?php echo $filter_customer; ?>" placeholder="<?php echo $entry_customer; ?>" id="input-customer" class="form-control" />]]>
+			</search>
+			<add>
+				<![CDATA[<div class="form-group">
+                <label class="control-label" for="input-shipping_city"><?php echo $entry_city; ?></label>
+                <input type="text" name="filter_shipping_city" value="<?php echo $filter_shipping_city; ?>" placeholder="<?php echo $entry_city; ?>" id="input-shipping_city" class="form-control" />
+              </div>]]>
+				<![CDATA[<div class="form-group">
+                <label class="control-label" for="input-shipping_postcode"><?php echo $entry_postcode; ?></label>
+                <input type="text" name="filter_shipping_postcode" value="<?php echo $filter_shipping_postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping_postcode" class="form-control" />
+              </div>]]>
+				<![CDATA[<div class="form-group">
+                <label class="control-label" for="input-shipping_country"><?php echo $entry_country; ?></label>
+                <input type="text" name="filter_shipping_country" value="<?php echo $filter_shipping_country; ?>" placeholder="<?php echo $entry_country; ?>" id="input-shipping_country" class="form-control" />
+              </div>]]>
+
+			</add>
+		</operation>
+		<operation error="log">
+			<search position="after" offset="1">
+			<![CDATA[<input type="text" name="filter_total" value="<?php echo $filter_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-total" class="form-control" />]]>
+			</search>
+			<add>
+				<![CDATA[<div class="form-group">
+                <label class="control-label" for="input-telephone"><?php echo $entry_telephone; ?></label>
+                <input type="text" name="filter_telephone" value="<?php echo $filter_telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" />
+              </div>]]>
+				<![CDATA[<div class="form-group">
+                <label class="control-label" for="input-email"><?php echo $entry_email; ?></label>
+                <input type="text" name="filter_email" value="<?php echo $filter_email; ?>" placeholder="<?php echo $entry_email; ?>" id="input-email" class="form-control" />
+              </div>]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search position="before">
+				<![CDATA[<td class="text-left"><?php if ($sort == 'o.date_added') { ?>]]>
+			</search>
+			<add>
+				<![CDATA[<td class="text-left" style="color:#1e91cf;"><?php echo $entry_city; ?></td>]]>
+				<![CDATA[<td class="text-left" style="color:#1e91cf;"><?php echo $entry_postcode; ?></td>]]>
+				<![CDATA[<td class="text-left" style="color:#1e91cf;"><?php echo $entry_country; ?></td>]]>
+				<![CDATA[<td class="text-right" style="color:#1e91cf;"><?php echo $entry_telephone; ?></td>]]>
+				<![CDATA[<td class="text-right" style="color:#1e91cf;"><?php echo $entry_email; ?></td>]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search position="before">
+				<![CDATA[<td class="text-left"><?php echo $order['date_added']; ?></td>]]>
+			</search>
+			<add>
+				<![CDATA[<td class="text-left"><?php echo $order['shipping_city']; ?></td>]]>
+				<![CDATA[<td class="text-left"><?php echo $order['shipping_postcode']; ?></td>]]>
+				<![CDATA[<td class="text-left"><?php echo $order['shipping_country']; ?></td>]]>
+				<![CDATA[<td class="text-right"><?php echo $order['telephone']; ?></td>]]>
+				<![CDATA[<td class="text-right"><?php echo $order['email']; ?></td>]]>
+			</add>
+		</operation>
+	</file>
+
+	<!-- langugae -->
+	<file name="friendlyarm-root/language/*/sale/order" error="log">
+
+		<operation error="log">
+			<search position="after">
+				<![CDATA[$_['entry_date_modified']        = 'Date Modified';]]>
+			</search>
+			<add>
+				<![CDATA[$_['entry_city']        = 'shipping_city';]]>
+				<![CDATA[$_['entry_postcode']        = 'shipping_postcode';]]>
+				<![CDATA[$_['entry_country']        = 'shipping_country';]]>
+				<![CDATA[$_['entry_telephone']        = 'Telephone';]]>
+				<![CDATA[$_['entry_email']        = 'email';]]>
+			</add>
+		</operation>
+
+	</file>
+
+</modification>
