@@ -276,8 +276,9 @@
 			<add>
 				<![CDATA[if (!empty($data['filter_shipping_postcode'])) {
 			$sql .= " AND shipping_postcode LIKE '%" . $this->db->escape($data['filter_shipping_postcode']) . "%'";
-		}]]>	<![CDATA[if (!empty($data['filter_shipping_country'])) {
-			$sql .= " AND o.shipping_country LIKE '%" . $this->db->escape($data['filter_shipping_country']) . "%'";
+		}]]>
+				<![CDATA[if (!empty($data['filter_shipping_country'])) {
+			$sql .= " AND shipping_country LIKE '%" . $this->db->escape($data['filter_shipping_country']) . "%'";
 		}]]>
 				<![CDATA[if (!empty($data['filter_telephone'])) {
 			$sql .= " AND telephone LIKE '%" . $this->db->escape($data['filter_telephone']) . "%'";
